@@ -31,4 +31,4 @@ name: Build and push
         context: .
         file: ./Dockerfile
         push: true
-        tags: kellen/cpsy-350-ci:latest
+        tags: kellengower/cpsy-350-ci:latest
