@@ -1,0 +1,15 @@
+#Use an official base image
+FROM ubuntu:latest
+
+#Set the working directory
+WORKDIR /app
+
+
+#Copy the contents of the unzipped folder into the container
+COPY . /app
+
+#Add your additional build steps here
+#Specify the command to run on container start
+CMD ["echo", "Docker container is running"]
+
+
