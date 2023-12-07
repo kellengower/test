@@ -1,53 +1,29 @@
-name: CI/CD Workflow
+name: Node.js CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  build:
+
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - name: Set Up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 14
-
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Run Tests
-      run: npm test
-
-    - name: Build
-      run: npm run build
-
-    - name: Deploy
-      # Add deployment steps here if needed
-      run: echo "Deploying..."
-
-  release:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - name: Set Up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 14
-
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Release to Production
-      # Add release steps here, such as publishing to npm, deploying to production, etc.
-      run: echo "Releasing..."
-
-
+    
+uses: actions/checkout@v3
+name: Use Node.js ${{ matrix.node-version }}
+  uses: actions/setup-node@v3
+  with:
+    node-version: ${{ matrix.node-version }}
+    cache: 'npm'
+run: npm install
+run: npm run build --if-present
+run: npm test
