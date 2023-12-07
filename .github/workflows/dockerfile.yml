@@ -29,6 +29,6 @@ name: Build and push
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./dockerfile.txt
+        file: ./dockerfile
         push: true
         tags: kellengower/cpsy-350-ci:latest
